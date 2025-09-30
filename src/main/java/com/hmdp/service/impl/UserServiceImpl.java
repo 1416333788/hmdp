@@ -87,11 +87,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //不存在，则创建
             user =  createUserWithPhone(phone);
         }
-        UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(user, userDTO);
+//        UserDTO userDTO = new UserDTO();
+//        BeanUtils.copyProperties(user, userDTO);
         //7.保存用户信息到session中
 //        session.setAttribute("user", userDTO);
         //7.保存用户信息到redis中
+        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
         String token = UUID.randomUUID().toString();
         //将User对象转为hashmap
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
